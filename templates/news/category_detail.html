@@ -1,0 +1,78 @@
+{% extends "news/base.html" %}
+{% load static %}
+
+{% block category %}
+<section id="navArea">
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav main_nav">
+        <li class="active"><a href="index.html"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+        
+        {% for category in category_list %}
+        <li><a href="#">{{category.name}}</a></li>
+        {% endfor %}
+
+    </div>
+  </nav>
+</section> 
+{% endblock category %}
+
+
+{% block content %}
+  
+ <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+
+
+        {% for news in news_list %}
+            <li>
+                <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="{% url 'news_detail_page' news.pk %}"> <img src="{{news.image.url}}" alt=""> <span class="overlay"></span> </a>
+                <figcaption> <a href="{% url 'news_detail_page' news.pk %}">{{news.title | truncatewords:10}}</a> </figcaption>
+                <p>{{news.body | truncatewords:20}}</p>
+                </figure>
+            </li>
+        {% endfor %}
+
+ 
+ {% endblock content %}
+
+ 
+ {% block content2 %}
+<div class="col-lg-4 col-md-4 col-sm-4">
+  <aside class="right_content">
+    <div class="single_sidebar">
+      <h2><span>Popular Post</span></h2>
+      <ul class="spost_nav">
+
+        <li>
+          <div class="media wow fadeInDown"> <a href="single_page.html" class="media-left"> <img alt="" src="#"> </a>
+            <div class="media-body"> <a href="#" class="catg_title"> </a> </div>
+          </div>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="single_sidebar">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
+        <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>
+        <li role="presentation"><a href="#comments" aria-controls="messages" role="tab" data-toggle="tab">Comments</a></li>
+      </ul>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="category">
+          <ul>
+
+            {% for category in category_list %}
+              <li class="cat-item"><a href="#">{{category.name}}</a></li>
+            {% endfor %}
+            
+      </div>
+  </aside>
+</div>
+</div>
+</section>
+{% endblock content2 %}
